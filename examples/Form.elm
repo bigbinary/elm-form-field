@@ -1,6 +1,7 @@
 module Form exposing (..)
 
 import Field exposing (..)
+import Field.ValidationResult exposing (..)
 import Html exposing (..)
 import Html.Events exposing (..)
 import Html.Attributes exposing (..)
@@ -14,9 +15,9 @@ type FormMessage
 
 
 type alias Model =
-    { name : Field String
-    , email : Field String
-    , phone : Field String
+    { name : Field String String
+    , email : Field String String
+    , phone : Field String String
     , message : FormMessage
     }
 
@@ -36,14 +37,14 @@ type Msg
     | OnSubmit
 
 
-validateEmpty : String -> String -> ( Maybe String, String )
+validateEmpty : String -> String -> ValidationResult String String
 validateEmpty n s =
     case s of
         "" ->
-            ( Just <| n ++ " cannot be empty", s )
+            Failed <| n ++ " cannot be empty"
 
         _ ->
-            ( Nothing, s )
+            Passed s
 
 
 validEmail : Regex
@@ -57,24 +58,24 @@ validNumbersOnly =
     Regex.regex "^\\d{10}$" |> Regex.caseInsensitive
 
 
-validateEmail : String -> ( Maybe String, String )
+validateEmail : String -> ValidationResult String String
 validateEmail s =
     case (Regex.contains validEmail s) of
         True ->
-            ( Nothing, s )
+            Passed s
 
         False ->
-            ( Just "Please enter a valid email", s )
+            Failed "Please enter a valid email"
 
 
-validateNumbersOnly : String -> ( Maybe String, String )
+validateNumbersOnly : String -> ValidationResult String String
 validateNumbersOnly s =
     case (Regex.contains validNumbersOnly s) of
         True ->
-            ( Nothing, s )
+            Passed s
 
         False ->
-            ( Just "Please enter a valid phone number", s )
+            Failed "Please enter a valid phone number"
 
 
 update : Msg -> Model -> Model
@@ -96,6 +97,15 @@ update msg model =
 
                 errors =
                     validateAll fields
+                        |> List.filter
+                            (\err ->
+                                case err of
+                                    Failed err ->
+                                        True
+
+                                    Passed _ ->
+                                        False
+                            )
 
                 isValid =
                     isAllValid fields
@@ -107,17 +117,16 @@ update msg model =
 
                         False ->
                             Error <|
-                                List.map (Maybe.withDefault "Unknown Error") <|
-                                    List.filter
-                                        (\err ->
-                                            case err of
-                                                Just _ ->
-                                                    True
+                                List.map
+                                    (\err ->
+                                        case err of
+                                            Failed err ->
+                                                err
 
-                                                Nothing ->
-                                                    False
-                                        )
-                                        errors
+                                            _ ->
+                                                "Unknown error"
+                                    )
+                                    errors
             in
                 { model | message = message }
 
