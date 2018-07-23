@@ -1,4 +1,4 @@
-module ValidationResult exposing (ValidationResult(..), map, contraMap, andThen)
+module Field.ValidationResult exposing (ValidationResult(..), map, contraMap, andThen)
 
 {-|
 

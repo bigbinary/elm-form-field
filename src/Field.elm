@@ -23,7 +23,7 @@ an error if the validation `Failed`
 
 -}
 
-import ValidationResult exposing (..)
+import Field.ValidationResult exposing (..)
 
 
 {-| A simple data type that helps capture and validate form data better
