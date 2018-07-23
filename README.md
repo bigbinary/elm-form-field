@@ -24,7 +24,7 @@ type alias Model =
     }
 ```
 
-The left String of a Field refers to the error and the right String refers to the actual value type
+The left `String` of a `Field` refers to the error and the right `String` refers to the actual value type
 
 We can initialize these as follows
 
@@ -33,11 +33,10 @@ init =
     { name = Field validateEmpty ""
     , email = Field (validateEmpty >> andThen validateEmail) ""
     , phone = Field validateNumbersOnly ""
-    , message = None
     }
 ```
 
-The Field constructor takes two arguments. The first one is a validation function which takes in value of the field and produces a `ValidationResult` type
+The `Field` constructor takes two arguments. The first one is a validation function which takes in value of the field and produces a `ValidationResult` type
 
 ```elm
 validateEmpty : String -> ValidationResult String String
@@ -50,7 +49,7 @@ validateEmpty s =
             Passed s
 ```
 
-Validate a `Field` using the validate function.
+Validate a `Field` using the `validate` function.
 
 Example of a `Passed` validation:
 
