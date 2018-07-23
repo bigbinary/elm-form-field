@@ -74,3 +74,8 @@ emailValidationResult = validate email
 
 Refer [example](https://github.com/breezyboa/elm-form-field/blob/master/examples/Form.elm)
 for more
+
+
+## Documentation
+
+Refer documentation [here](http://package.elm-lang.org/packages/breezyboa/elm-form-field/latest)
