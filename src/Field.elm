@@ -3,7 +3,7 @@ module Field exposing (Field(..), value, update, validate, validateAll, isValid,
 {-| A `Field` is a simple data type that helps capture and validate form data better.
 The left side of a field represents a function that takes in a value of arbitrary type,
 validates it and returns a `ValidationResult`.
-The `ValidationResult` can contain the value of the field if the validation `Passed` or
+The `ValidationResult` can contain the value of the field if the validation `Passed`, or
 an error if the validation `Failed`
 
 
@@ -26,7 +26,7 @@ an error if the validation `Failed`
 import Field.ValidationResult exposing (..)
 
 
-{-| A simple data type that helps capture and validate form data better
+{-| Type that helps capture and validate form data better
 -}
 type Field e v
     = Field (v -> ValidationResult e v) v
@@ -46,14 +46,14 @@ update (Field fn value) v =
     Field fn v
 
 
-{-| Validate a Field and get a ValidationResult
+{-| Validate a Field and get a `ValidationResult`
 -}
 validate : Field e v -> ValidationResult e v
 validate (Field fn value) =
     fn value
 
 
-{-| Validate a List of Fields and get a List of ValidationResult
+{-| Validate a List of Fields and get a List of `ValidationResult`
 -}
 validateAll : List (Field e v) -> List (ValidationResult e v)
 validateAll =
