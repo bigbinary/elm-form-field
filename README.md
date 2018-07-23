@@ -4,7 +4,7 @@ A `Field` is a simple data type that helps capture and validate form data better
 The left side of a field represents a function that takes in a value of arbitrary type,
 validates it and returns a `ValidationResult`.
 
-The `ValidationResult` can contain the value of the field if the validation `Passed` or
+The `ValidationResult` can contain the value of the field if the validation `Passed`, or
 an error if the validation `Failed`
 
 ## Example
@@ -13,6 +13,10 @@ Assume that we have a form with name, email and phone as inputs.
 Then we can define these as `Field`s as follows
 
 ```elm
+
+import Field exposing (..)
+import Field.ValidationResult exposing (..)
+
 type alias Model =
     { name : Field String String
     , email : Field String String
@@ -69,5 +73,5 @@ emailValidationResult = validate email
 -- emailValidationResult == Failed "Field cannot be empty"
 ```
 
-Refer [example](https://github.com/breezyboa/elm-form-field/blob/master/examples/Form.elm).
-For more
+Refer [example](https://github.com/breezyboa/elm-form-field/blob/master/examples/Form.elm)
+for more
