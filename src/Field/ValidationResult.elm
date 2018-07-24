@@ -1,4 +1,4 @@
-module Field.ValidationResult exposing (ValidationResult(..), map, contraMap, andThen)
+module Field.ValidationResult exposing (ValidationResult(..), map, contraMap, andThen, filterFailures, filterPassed)
 
 {-|
 
@@ -16,6 +16,11 @@ module Field.ValidationResult exposing (ValidationResult(..), map, contraMap, an
 # Chaining
 
 @docs andThen
+
+
+# Helpers
+
+@docs filterFailures, filterPassed
 
 -}
 
@@ -65,3 +70,33 @@ andThen fn t =
 
         Passed v ->
             fn v
+
+
+{-| Get all ValidationResults that Failed
+-}
+filterFailures : List (ValidationResult e v) -> List (ValidationResult e v)
+filterFailures =
+    List.filter
+        (\v ->
+            case v of
+                Failed _ ->
+                    True
+
+                Passed _ ->
+                    False
+        )
+
+
+{-| Get all ValidationResults that Passed
+-}
+filterPassed : List (ValidationResult e v) -> List (ValidationResult e v)
+filterPassed =
+    List.filter
+        (\v ->
+            case v of
+                Failed _ ->
+                    False
+
+                Passed _ ->
+                    True
+        )
