@@ -72,10 +72,16 @@ emailValidationResult = validate email
 -- emailValidationResult == Failed "Field cannot be empty"
 ```
 
-Refer [example](https://github.com/breezyboa/elm-form-field/blob/master/examples/Form.elm)
+Refer [example](https://github.com/bigbinary/elm-form-field/blob/master/examples/Form.elm)
 for more
 
 
 ## Documentation
 
-Refer documentation [here](http://package.elm-lang.org/packages/breezyboa/elm-form-field/latest)
+Refer documentation [here](http://package.elm-lang.org/packages/bigbinary/elm-form-field/latest)
+
+## About BigBinary
+
+![BigBinary](https://raw.githubusercontent.com/bigbinary/bigbinary-assets/press-assets/PNG/logo-light-solid-small.png?raw=true)
+
+elm-reader is maintained by [BigBinary](https://www.BigBinary.com). BigBinary is a software consultancy company. We build web and mobile applications using Ruby on Rails, React.js, React Native and Elm.
