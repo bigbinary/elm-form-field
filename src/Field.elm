@@ -84,8 +84,15 @@ isAllValid f =
     List.all (isValid_) <| validateAll f
 
 
-{-| Map over a Field
+{-| Map over the right side or the value of a Field
 -}
 map : (v -> v) -> Field e v -> Field e v
 map mapFn (Field fn value) =
     Field fn (mapFn value)
+
+
+{-| Add Additional validations to a Field
+-}
+addValidation : (v -> ValidationResult e v) -> Field e v -> Field e v
+addValidation valFn (Field fn value) =
+    Field (fn >> andThen valFn) value
