@@ -1,4 +1,4 @@
-module Field exposing (Field(..), value, update, validate, validateAll, isValid, isAllValid, map)
+module Field exposing (Field(..), value, update, validate, validateAll, isValid, isAllValid, addValidation, map)
 
 {-| A `Field` is a simple data type that helps capture and validate form data better.
 The left side of a field represents a function that takes in a value of arbitrary type,
@@ -14,7 +14,7 @@ an error if the validation `Failed`
 
 # Helpers
 
-@docs value, update, validate, validateAll, isValid, isAllValid
+@docs value, update, validate, validateAll, isValid, isAllValid, addValidation
 
 
 # Mapping
@@ -84,15 +84,15 @@ isAllValid f =
     List.all (isValid_) <| validateAll f
 
 
-{-| Map over the right side or the value of a Field
--}
-map : (v -> v) -> Field e v -> Field e v
-map mapFn (Field fn value) =
-    Field fn (mapFn value)
-
-
 {-| Add Additional validations to a Field
 -}
 addValidation : (v -> ValidationResult e v) -> Field e v -> Field e v
 addValidation valFn (Field fn value) =
     Field (fn >> andThen valFn) value
+
+
+{-| Map over the right side or the value of a Field
+-}
+map : (v -> v) -> Field e v -> Field e v
+map mapFn (Field fn value) =
+    Field fn (mapFn value)
