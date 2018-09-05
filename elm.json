@@ -1,0 +1,17 @@
+{
+    "type": "package",
+    "name": "bigbinary/elm-form-field",
+    "summary": "Capture form data better",
+    "license": "MIT",
+    "version": "1.1.0",
+    "exposed-modules": [
+        "Field",
+        "Field.ValidationResult"
+    ],
+    "elm-version": "0.19.0 <= v < 0.20.0",
+    "dependencies": {
+        "elm/core": "1.0.0 <= v < 2.0.0",
+        "elm/html": "1.0.0 <= v < 2.0.0"
+    },
+    "test-dependencies": {}
+}

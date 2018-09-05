@@ -1,4 +1,8 @@
-module Field exposing (Field(..), value, update, validate, validateAll, isValid, isAllValid, addValidation, map)
+module Field exposing
+    ( Field(..)
+    , value, update, validate, validateAll, isValid, isAllValid, addValidation
+    , map
+    )
 
 {-| A `Field` is a simple data type that helps capture and validate form data better.
 The left side of a field represents a function that takes in a value of arbitrary type,
@@ -35,22 +39,22 @@ type Field e v
 {-| Extract the value out of a Field
 -}
 value : Field e v -> v
-value (Field fn value) =
-    value
+value (Field fn fvalue) =
+    fvalue
 
 
 {-| Update the value of a Field
 -}
 update : Field e v -> v -> Field e v
-update (Field fn value) v =
+update (Field fn fvalue) v =
     Field fn v
 
 
 {-| Validate a Field and get a `ValidationResult`
 -}
 validate : Field e v -> ValidationResult e v
-validate (Field fn value) =
-    fn value
+validate (Field fn fvalue) =
+    fn fvalue
 
 
 {-| Validate a List of Fields and get a List of `ValidationResult`
@@ -81,18 +85,18 @@ isValid_ f =
 -}
 isAllValid : List (Field e v) -> Bool
 isAllValid f =
-    List.all (isValid_) <| validateAll f
+    List.all isValid_ <| validateAll f
 
 
 {-| Add Additional validations to a Field
 -}
 addValidation : (v -> ValidationResult e v) -> Field e v -> Field e v
-addValidation valFn (Field fn value) =
-    Field (fn >> andThen valFn) value
+addValidation valFn (Field fn fvalue) =
+    Field (fn >> andThen valFn) fvalue
 
 
 {-| Map over the right side or the value of a Field
 -}
 map : (v -> v) -> Field e v -> Field e v
-map mapFn (Field fn value) =
-    Field fn (mapFn value)
+map mapFn (Field fn fvalue) =
+    Field fn (mapFn fvalue)
